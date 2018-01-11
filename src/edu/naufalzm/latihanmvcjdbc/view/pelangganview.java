@@ -376,6 +376,7 @@ public class pelangganview extends javax.swing.JFrame implements pelangganlisten
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new pelangganview().setVisible(true);
             }
@@ -434,7 +435,7 @@ public class pelangganview extends javax.swing.JFrame implements pelangganlisten
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent lse) {
+    public void valueChanged(ListSelectionEvent e) {
         try {
             pelanggan model = tabelmodel.get(pelanggan.getSelectedRow());
             id.setText(model.getID() + "");
