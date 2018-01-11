@@ -6,28 +6,44 @@
  */
 package edu.naufalzm.latihanmvcjdbc.view;
 
+
+import edu.naufalzm.latihanmvcjdbc.controller.pelangganController;
+import edu.naufalzm.latihanmvcjdbc.entity.pelanggan;
+import edu.naufalzm.latihanmvcjdbc.event.pelangganlistener;
+import edu.naufalzm.latihanmvcjdbc.model.pelangganmodel;
 import edu.naufalzm.latihanmvcjdbc.model.tablepelangganmodel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author Naufal Zayn M
  */
-public class pelangganview extends javax.swing.JFrame {
+public class pelangganview extends javax.swing.JFrame implements pelangganlistener, ListSelectionListener {
 
     /**
      * Creates new form pelangganview
      */
-    
     private tablepelangganmodel tabelmodel;
+    private pelangganmodel model;
+    private pelangganController controller;
     
-    
+
     public pelangganview() {
         tabelmodel = new tablepelangganmodel();
-        initComponents();
-        pelanggan.setModel(tabelmodel);
+        model.setListener(this);
+        controller = new pelangganController();
+        controller.setModel(model);
         
+        
+        initComponents();
+
+        pelanggan.getSelectionModel().addListSelectionListener(this);
+
+        pelanggan.setModel(tabelmodel);
+
     }
 
     public JTextField getAlamat() {
@@ -173,12 +189,32 @@ public class pelangganview extends javax.swing.JFrame {
         }
 
         reset.setText("RESET");
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
 
         simpan.setText("SIMPAN");
+        simpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanActionPerformed(evt);
+            }
+        });
 
         ubah.setText("UBAH");
+        ubah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubahActionPerformed(evt);
+            }
+        });
 
         hapus.setText("HAPUS");
+        hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -291,6 +327,26 @@ public class pelangganview extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_alamatActionPerformed
 
+    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+        // TODO add your handling code here:
+        controller.resetPelanggan(this);
+    }//GEN-LAST:event_resetActionPerformed
+
+    private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
+        // TODO add your handling code here:
+        controller.insertPelanggan(this);
+    }//GEN-LAST:event_simpanActionPerformed
+
+    private void ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahActionPerformed
+        // TODO add your handling code here:
+        controller.updatePelanggan(this);
+    }//GEN-LAST:event_ubahActionPerformed
+
+    private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
+        // TODO add your handling code here:
+        controller.deletePelanggan(this);
+    }//GEN-LAST:event_hapusActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -349,4 +405,46 @@ public class pelangganview extends javax.swing.JFrame {
     private javax.swing.JTextField telepon;
     private javax.swing.JButton ubah;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onChange(pelangganmodel model) {
+        id.setText(model.getID() + "");
+        nama.setText(model.getNama());
+        alamat.setText(model.getAlamat());
+        telepon.setText(model.getTelepon());
+        email.setText(model.getEmail());
+
+    }
+
+    @Override
+    public void onInsert(pelanggan pelanggan) {
+        tabelmodel.add(pelanggan);
+    }
+
+    @Override
+    public void onDelete() {
+        int i = this.pelanggan.getSelectedRow();
+        tabelmodel.remove(i);
+    }
+
+    @Override
+    public void onUpdate(pelanggan pelanggan) {
+        int i = this.pelanggan.getSelectedRow();
+        tabelmodel.set(i, pelanggan);
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent lse) {
+        try {
+            pelanggan model = tabelmodel.get(pelanggan.getSelectedRow());
+            id.setText(model.getID() + "");
+            nama.setText(model.getNama());
+            alamat.setText(model.getAlamat());
+            telepon.setText(model.getTelepon());
+            email.setText(model.getEmail());
+
+        } catch (IndexOutOfBoundsException exception) {
+        }
+
+    }
 }

@@ -281,21 +281,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="RESET"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="simpan">
       <Properties>
         <Property name="text" type="java.lang.String" value="SIMPAN"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simpanActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ubah">
       <Properties>
         <Property name="text" type="java.lang.String" value="UBAH"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ubahActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="hapus">
       <Properties>
         <Property name="text" type="java.lang.String" value="HAPUS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hapusActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

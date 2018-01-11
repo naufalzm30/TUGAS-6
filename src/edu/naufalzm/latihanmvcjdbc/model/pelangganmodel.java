@@ -96,7 +96,7 @@ public class pelangganmodel {
     
     protected void fireOnUpdate(pelanggan pelanggan){
         if(listener!=null){
-            listener.onupdate(pelanggan);
+            listener.onUpdate(pelanggan);
         }
     }
     
